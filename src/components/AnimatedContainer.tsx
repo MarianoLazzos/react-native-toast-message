@@ -18,6 +18,7 @@ export type AnimatedContainerProps = {
   isVisible: boolean;
   position: ToastPosition;
   topOffset: number;
+  swipeable: boolean;
   bottomOffset: number;
   keyboardOffset: number;
   onHide: () => void;
@@ -74,7 +75,8 @@ export function AnimatedContainer({
   bottomOffset,
   keyboardOffset,
   onHide,
-  onRestorePosition = noop
+  onRestorePosition = noop,
+  swipeable
 }: AnimatedContainerProps) {
   const { log } = useLogger();
 
@@ -112,7 +114,8 @@ export function AnimatedContainer({
     animatedValue,
     computeNewAnimatedValueForGesture,
     onDismiss,
-    onRestore
+    onRestore,
+    disable: !swipeable
   });
 
   React.useLayoutEffect(() => {
@@ -127,7 +130,7 @@ export function AnimatedContainer({
       style={[styles.base, styles[position], animationStyles]}
       // This container View is never the target of touch events but its subviews can be.
       // By doing this, tapping buttons behind the Toast is allowed
-      pointerEvents='box-none'
+      pointerEvents={isVisible ? 'box-none' : 'none'}
       {...panResponder.panHandlers}>
       {children}
     </Animated.View>
