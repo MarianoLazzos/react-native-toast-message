@@ -13,8 +13,11 @@ export const DEFAULT_DATA: ToastData = {
 
 export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   type: 'success',
+  text1Style: null,
+  text2Style: null,
   position: 'top',
   autoHide: true,
+  swipeable: true,
   visibilityTime: 4000,
   topOffset: 40,
   bottomOffset: 40,
@@ -66,6 +69,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
         text1 = DEFAULT_DATA.text1,
         text2 = DEFAULT_DATA.text2,
         type = initialOptions.type,
+        text1Style = initialOptions.text1Style,
+        text2Style = initialOptions.text2Style,
         position = initialOptions.position,
         autoHide = initialOptions.autoHide,
         visibilityTime = initialOptions.visibilityTime,
@@ -75,6 +80,7 @@ export function useToast({ defaultOptions }: UseToastParams) {
         onShow = initialOptions.onShow,
         onHide = initialOptions.onHide,
         onPress = initialOptions.onPress,
+        swipeable = initialOptions.swipeable,
         props = initialOptions.props
       } = params;
       setData({
@@ -84,6 +90,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
       setOptions(
         mergeIfDefined(initialOptions, {
           type,
+          text1Style,
+          text2Style,
           position,
           autoHide,
           visibilityTime,
@@ -93,6 +101,7 @@ export function useToast({ defaultOptions }: UseToastParams) {
           onShow,
           onHide,
           onPress,
+          swipeable,
           props
         }) as Required<ToastOptions>
       );

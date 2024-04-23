@@ -10,7 +10,7 @@ import {
 
 export type ReactChildren = React.ReactNode;
 
-export type ToastType = string;
+export type ToastType = 'success' | 'error' | 'info' | (string & {});
 export type ToastPosition = 'top' | 'bottom';
 
 export type ToastOptions = {
@@ -19,6 +19,14 @@ export type ToastOptions = {
    * Default value: `success`
    */
   type?: ToastType;
+  /**
+   * Style for the header text in the Toast (text1).
+   */
+  text1Style?: StyleProp<TextStyle>;
+  /**
+   * Style for the inner message text in the Toast (text2).
+   */
+  text2Style?: StyleProp<TextStyle>;
   /**
    * Toast position.
    * Default value: `top`
@@ -36,6 +44,11 @@ export type ToastOptions = {
    * Default value: `4000`
    */
   visibilityTime?: number;
+  /**
+   * When `true`, the Toast can be dismissed by a swipe gesture, specified by the `swipeable` prop.
+   * Default value: `true`
+   */
+  swipeable?: boolean;
   /**
    * Offset from the top of the screen (in px).
    * Has effect only when `position` is `top`
@@ -108,6 +121,8 @@ export type ToastConfigParams<Props> = {
   isVisible: boolean;
   text1?: string;
   text2?: string;
+  text1Style?: StyleProp<TextStyle>;
+  text2Style?: StyleProp<TextStyle>;
   show: (params: ToastShowParams) => void;
   hide: (params: ToastHideParams) => void;
   onPress: () => void;
